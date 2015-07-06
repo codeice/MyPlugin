@@ -1,0 +1,163 @@
+@charset "UTF-8";
+/**
+ *
+ * @authors Your Name (you@example.org)
+ * @date    2015-07-06 11:34:40
+ * @version $Id$
+ */
+
+ *{
+    margin: 0;
+    padding: 0;
+}
+.verticalAccordion{
+    width: 500px;
+    margin: 0 auto;
+}
+
+.verticalAccordion ul{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.verticalAccordion li{
+    list-style: none outside none;
+    display: block;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+    background:#f0f0f0;
+    transition:height 0.5s ease-in-out;
+    -webkit-transition:height 0.5s ease-in-out;
+    -moz-transition:height 0.5s ease-in-out;
+    -o-transition:height 0.5s ease-in-out;
+}
+
+.verticalAccordion h3{
+    position: relative;
+    height: 39px;
+    line-height: 39px;
+    text-indent:10px;
+    border-top: 1px solid #f0f0f0;
+    text-transform: uppercase;
+    color: #000;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.verticalAccordion h3:after{
+    position: absolute;
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 5px solid #000;
+    border-color: #000 transparent transparent transparent;
+    right: 10px;
+    top: 14px;
+}
+
+.verticalAccordion div{
+    margin: 0;
+    overflow: auto;
+    padding: 10px;
+    height: 220px;
+}
+
+.verticalAccordion li:hover{
+    height: 280px;
+}
+
+.verticalAccordion li:hover h3{
+    color:#f0f0f0;
+    background-color: #000;
+}
+
+.verticalAccordion li:hover h3:after{
+    border-color: transparent transparent transparent #fff;
+}
+
+
+/*accordion implete by :target pseudo class*/
+.accordionMenu{
+    font:12px Arial,Verdana,sans-serif;
+    color: #424242;
+    background-color: #fff;
+    padding: 10px;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.accordionMenu h2{
+    margin: 5px 0;
+    padding: 0;
+    position: relative;
+}
+
+.accordionMenu h2:before{
+    content:"";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border:5px solid #fff;
+    border-color: #fff transparent transparent transparent;
+    position: absolute;
+    right: 10px;
+    top:15px;
+}
+
+.accordionMenu h2 a {
+    font-size: 13px;
+    display: block;
+    font-weight: normal;
+    color:#424242;
+    text-shadow: 2px 2px 2px #aeaeae;
+    text-decoration:none;
+    margin:0;
+    padding:10px 10px;
+    background: #8f8f8f;
+    background: -moz-linear-gradient( top, #cecece, #8f8f8f);
+    background: -webkit-gradient(linear, left top, left bottom, from(#cecece), to(#8f8f8f));
+    background: -webkit-linear-gradient( top, #cecece, #8f8f8f);
+    background: -o-linear-gradient( top, #cecece, #8f8f8f);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffcecece, endColorstr=#ff8f8f8f);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffcecece, endColorstr=#f8f8f8f)";
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.accordionMenu :target h2 a,
+.accordion h2 a:focus,
+.accordionMenu h2 a:hover,
+.accordionMenu h2 a:active{
+    background: #2288dd;
+    background: -moz-linear-gradient( top, #6bb2ff, #2288dd);
+    background: -webkit-gradient(linear, left top, left bottom, from(#6bb2ff), to(#2288dd));
+    background: -webkit-linear-gradient( top, #6bb2ff, #2288dd);
+    background: -o-linear-gradient( top, #6bb2ff, #2288dd);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff6bb2ff, endColorstr=#ff2288dd);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ff6bb2ff, endColorstr=#ff2288dd)";
+    color:#FFF;
+}
+
+.accordionMenu p{
+    padding: 0 10px;
+    margin: 0;
+    height: 0;
+    overflow: hidden;
+    transition:height 0.5s ease-in-out;
+    -moz-transition:height 0.5s ease-in-out;
+    -webkit-transition:height 0.5s ease-in-out;
+    -o-transition:height 0.5s ease-in-out;
+}
+
+.accordionMenu :target p{
+    overflow: auto;
+    height: 100px;
+}
+
+.accordionMenu :target h2:before{
+    border-color: transparent  transparent transparent #fff;
+}
