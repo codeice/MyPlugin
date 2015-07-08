@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>horizontal calender</title>
+    <link rel="stylesheet" type="text/css" href="css/horizontalDatepicker.css">
+    <script src="js/jquery-1.8.2/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/horizontalDatepicker.js"></script>
+</head>
+<body>
+
+    <div class="horizontal-datepicker" id="divTab" runat="server">
+        <!--  年 -->
+        <div class="year-container" >
+            <div id='year-wrapper' >
+                <input type="text" id="year" value="2013" style='float: left;' />
+                <span class="unit-text">年</span>
+            </div>
+            <div id='year-select-list' >
+                <table>
+                    <tr>
+                        <td class='date-item'>
+                            2008
+                        </td>
+                        <td class='date-item'>
+                            2013
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='date-item'>
+                            2009
+                        </td>
+                        <td class='date-item'>
+                            2014
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='date-item'>
+                            2010
+                        </td>
+                        <td class='date-item'>
+                            2015
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='date-item'>
+                            2011
+                        </td>
+                        <td class='date-item'>
+                            2016
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='date-item'>
+                            2012
+                        </td>
+                        <td class='date-item'>
+                            2017
+                        </td>
+                    </tr>
+                    <tr class='date-operation'>
+                        <td id='year-sub'>
+                            <span style=" font-size:16px;"> &lt;</span>
+                        </td>
+                        <td id='year-add'>
+                         <span style=" font-size:16px;">&gt;</span>
+                     </td>
+                 </tr>
+             </table>
+         </div>
+     </div>
+
+     <!--月-->
+     <div class="month-container">
+        <div id='month-wrapper'>
+            <input type="text" style='' id="month" value="8" />
+            <span class="unit-text">月</span>
+        </div>
+        <div id='month-select-list'>
+            <table>
+                <tr>
+                    <td class='date-month-item'>
+                        1月<input type="hidden" value='1' />
+                    </td>
+                    <td class='date-month-item'>
+                        7月<input type="hidden" value='7' />
+                    </td>
+                </tr>
+                <tr>
+                    <td class='date-month-item'>
+                        2月<input type="hidden" value='2' />
+                    </td>
+                    <td class='date-month-item'>
+                        8月<input type="hidden" value='8' />
+                    </td>
+                </tr>
+                <tr>
+                    <td class='date-month-item'>
+                        3月<input type="hidden" value='3' />
+                    </td>
+                    <td class='date-month-item'>
+                        9月<input type="hidden" value='9' />
+                    </td>
+                </tr>
+                <tr>
+                    <td class='date-month-item'>
+                        4月<input type="hidden" value='4' />
+                    </td>
+                    <td class='date-month-item'>
+                        10月<input type="hidden" value='10' />
+                    </td>
+                </tr>
+                <tr>
+                    <td class='date-month-item'>
+                        5月<input type="hidden" value='5' />
+                    </td>
+                    <td class='date-month-item'>
+                        11月<input type="hidden" value='11' />
+                    </td>
+                </tr>
+                <tr>
+                    <td class='date-month-item'>
+                        6月<input type="hidden" value='6' />
+                    </td>
+                    <td class='date-month-item'>
+                        12月<input type="hidden" value='12' />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- 日 -->
+    <div class="date-container">
+        <!-- left turn -->
+        <div id='turn-date-left'>&lt;</div>
+        <!-- 日期显示部分 -->
+        <div class='date-slider-wrapper' >
+            <div id="date-slider" >
+            </div>
+        </div>
+        <!-- right turn -->
+        <div id='turn-date-right' >
+            &gt;
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
+
