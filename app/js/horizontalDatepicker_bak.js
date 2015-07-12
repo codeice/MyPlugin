@@ -5,6 +5,16 @@
  * @version $Id$
  */
 
+/*
+var horizontalDatepicker={
+    position:0,
+    selectedDate:0,
+    loadingDate:new Object(),
+
+};*/
+
+
+
 var position = 0;
 var selected = '';
 
@@ -73,12 +83,12 @@ function appendDateHtml(year, val) {
     var num = DayNumOfMonth(year, val);
     $('#date-slider').html('');
     for (var i = 1; i <= num; i++) {
-
         $('#date-slider').append('<span id=span-' + i + ' onclick = hideYearSelectList();hideMonthSelectList();addSelectClass($(this));getExhibitionDetail($(this));selected="#"+$(this).attr("id"); style=vertical-align:middle;text-align:center;cursor:pointer;float:left;width:64px;height:40px;margin-top:8px;padding-top:10px;padding-top:7px;>' + i + '日</span>');
     }
     position = 0;
     $('#date-slider').css('left', '0');
 }
+
 $(document).ready(function() {
     var month;
     var year;
@@ -92,7 +102,7 @@ $(document).ready(function() {
         getExhibitionDetail($(this));
     })
 
-    $('.date-item').click(function() {
+    $('.year-item').click(function() {
         var val = $(this).text().replace(/^\s+|\s+$/g, '');
         var month = $('#month').val();
         hideYearSelectList();
@@ -100,7 +110,7 @@ $(document).ready(function() {
         appendDateHtml(val, month);
     })
 
-    $('.date-month-item').click(function() {
+    $('.month-item').click(function() {
         var year = $('#year').val();
         var val = $(this).children('input').val();
 
@@ -109,14 +119,15 @@ $(document).ready(function() {
         appendDateHtml(year, val);
     })
 
-    $('#date-sub').click(function() {
-        $.each($('td.date-item'), function(index, el) {
+    //年份上一页
+    $('#pre-year-page').click(function() {
+        $.each($('td.year-item'), function(index, el) {
             $(el).text(eval($(el).text()) - 1);
         })
     })
-
-    $('#date-plus').click(function() {
-        $.each($('td.date-item'), function(index, el) {
+    //年份下一页
+    $('#next-year-page').click(function() {
+        $.each($('td.year-item'), function(index, el) {
             //alert($(el).text());
             $(el).text(eval($(el).text()) + 1);
         })
