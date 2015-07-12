@@ -102,7 +102,7 @@ $(document).ready(function() {
         getExhibitionDetail($(this));
     })
 
-    $('.date-item').click(function() {
+    $('.year-item').click(function() {
         var val = $(this).text().replace(/^\s+|\s+$/g, '');
         var month = $('#month').val();
         hideYearSelectList();
@@ -110,7 +110,7 @@ $(document).ready(function() {
         appendDateHtml(val, month);
     })
 
-    $('.date-month-item').click(function() {
+    $('.month-item').click(function() {
         var year = $('#year').val();
         var val = $(this).children('input').val();
 
@@ -119,14 +119,15 @@ $(document).ready(function() {
         appendDateHtml(year, val);
     })
 
-    $('#year-sub').click(function() {
-        $.each($('td.date-item'), function(index, el) {
+    //年份上一页
+    $('#pre-year-page').click(function() {
+        $.each($('td.year-item'), function(index, el) {
             $(el).text(eval($(el).text()) - 1);
         })
     })
-
-    $('#year-add').click(function() {
-        $.each($('td.date-item'), function(index, el) {
+    //年份下一页
+    $('#next-year-page').click(function() {
+        $.each($('td.year-item'), function(index, el) {
             //alert($(el).text());
             $(el).text(eval($(el).text()) + 1);
         })

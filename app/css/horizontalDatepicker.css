@@ -121,7 +121,7 @@ td{
     cursor: pointer;
 }
 
-.date-item
+.year-item
 {
     width: 50px;
     height: 30px;
@@ -129,12 +129,12 @@ td{
     vertical-align: middle;
     text-align: center;
 }
-.date-item:hover
+.year-item:hover
 {
     background-color: #0F6FBB;
     color: #fff;
 }
-.date-month-item
+.month-item
 {
     vertical-align: middle;
     text-align: center;
@@ -142,7 +142,7 @@ td{
     height: 30px;
     cursor: pointer;
 }
-.date-month-item:hover
+.month-item:hover
 {
     background-color: #0F6FBB;
     color: #fff;
