@@ -57,16 +57,17 @@ var horizontalDatepicker = {
 
         //年份上一页
         $('#pre-year-page').on("click", function() {
-            $.each($('td.year-item'), function(index, el) {
-                $(el).text(eval($(el).text()) - 1);
+            $.each($('td.year-item'), function(index, element) {
+                console.log("index=",index,"element=",element);
+                $(element).text(eval($(element).text()) - 1);
             });
         });
 
         //年份下一页
         $('#next-year-page').on("click", function() {
-            $.each($('td.year-item'), function(index, el) {
+            $.each($('td.year-item'), function(index, element) {
                 //alert($(el).text());
-                $(el).text(eval($(el).text()) + 1);
+                $(element).text(eval($(element).text()) + 1);
             })
         });
 

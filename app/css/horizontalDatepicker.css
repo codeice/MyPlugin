@@ -93,12 +93,11 @@
     display: none;z-index: 29;
     border: 1px solid #0F6FBB;
     top: 50px;
-    transition: display 0.2s ease-in-out;
-    -webkit-transition: display 0.2s ease-in-out;
-    -moz-transition: display 0.2s ease-in-out;
-    transition: display 0.2s ease-in-out;
+    transition: all 0.3s linear;
+    -webkit-transition:all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    transition: all 0.3s linear;
 }
-
 #year-select-list{
     left: 30px;
 }
@@ -128,6 +127,10 @@ td{
     cursor: pointer;
     vertical-align: middle;
     text-align: center;
+    transition: all 0.1 ease-in-out;
+    -webkit-transition: all 0.1 ease-in-out;
+    -moz-transition: all 0.1 ease-in-out;
+    -o-transition: all 0.1 ease-in-out;
 }
 .year-item:hover
 {
@@ -173,11 +176,21 @@ td{
     -o-transition: left 0s linear;
 }
 
-#date-slider span
+#date-slider>.day-number
 {
     font-size: 16px;
     color:#fff;
+    vertical-align:middle;
+    text-align:center;
+    cursor:pointer;
+    float:left;
+    width:64px;
+    height:40px;
+    margin-top:8px;
+    padding-top:10px;
+    padding-top:7px;
 }
+
 #date-slider>.select
 {
     color: #0F6FBB;
