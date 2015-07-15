@@ -4,7 +4,7 @@
  * @date    2015-07-08 14:22:02
  * @version $Id$
  */
-function loadingData(year, month, day) {
+ function loadingData(year, month, day) {
     console.log("Current selected day is:", year + "-" + month + "-" + day);
 }
 $(function() {
@@ -40,13 +40,13 @@ var horizontalDatepicker = {
         });
 
         //更改年份
-        $('.year-item').on("click", function() {
+        $('#year-select-list').delegate(".year-item","click", function() {
             var year = $(this).text().replace(/^\s+|\s+$/g, '');
             horizontalDatepicker.changeYear(year);
         });
 
         //更改月份
-        $('.month-item').on("click", function() {
+        $('#month-select-list').delegate(".month-item","click", function() {
             var month = $(this).children('input').val();
             horizontalDatepicker.changeMonth(month);
         });
@@ -62,26 +62,26 @@ var horizontalDatepicker = {
         });
 
         //日期点击事件
-        // $("#date-slider").delegate(".day-number","click",function(){
-        //     console.log($(this).attr("id"));
-        //     horizontalDatepicker.chooseDay($(this));
-        // });
+        $("#date-slider").delegate(".day-number","click",function(){
+            console.log($(this).attr("id"));
+            horizontalDatepicker.chooseDay($(this));
+        });
 
         // $('#date-slider>.day-number').live("click", function() {
         //     horizontalDatepicker.chooseDay($(this));
         // });
 
-          $('#date-slider>.day-number').on("click", function() {
-            horizontalDatepicker.chooseDay($(this));
-        });
+        //   $('#date-slider').on("click",".day-number",function() {
+        //     horizontalDatepicker.chooseDay($(this));
+        // });
 
         //日期右滑动
-        $('#turn-date-right').on("click",function() {
+        $('.date-container').delegate("#turn-date-right","click",function() {
             horizontalDatepicker.turnToRight();
         });
 
         //日期左滑动
-        $('#turn-date-left').on("click",function() {
+        $('.date-container').delegate("#turn-date-left","click",function() {
             horizontalDatepicker.turnToLeft();
         });
     },
@@ -170,8 +170,8 @@ var horizontalDatepicker = {
         horizontalDatepicker.selectedDayEleId = "#" + $dayElement.attr("id");
     },
     hideYearMonthSelectList: function() {
-        $('#year-select-list').css('display', 'none');
-        $('#month-select-list').css('display', 'none');
+        $('#year-select-list').css("display","none");
+        $('#month-select-list').css("display","none");
     },
 
     // 更改选中日期的样式
