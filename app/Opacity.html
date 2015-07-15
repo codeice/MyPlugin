@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Opacity And RGBA</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+<style>
+    .sample1,.sample{
+        float: left;
+    }
+    ul{
+        float: left;
+        list-style: none;
+    }
+    li.opacity,li.rgba{
+        float: left;
+        width: 50px;
+        height: 50px;
+    }
+    /*opacity make the opacity effection*/
+
+    li.opacity1 {
+     background: rgb(255,255,0);
+     opacity: 1;
+     filter:alpha(opacity=100);
+ }
+ li.opacity2 {
+    background: rgb(255,255,0);
+    opacity: 0.8;
+    filter:alpha(opacity=80);
+}
+li.opacity3 {
+    background: rgb(255,255,0);
+    opacity: 0.6;
+    filter:alpha(opacity=60);
+}
+li.opacity4 {
+    background: rgb(255,255,0);
+    opacity: 0.4;
+    filter:alpha(opacity=40);
+}
+li.opacity5 {
+    background: rgb(255,255,0);
+    opacity: 0.2;
+    filter:alpha(opacity=20);
+}
+li.opacity6 {
+    background: rgb(255,255,0);
+    opacity: 0;
+    filter:alpha(opacity=0);
+}
+
+/*rgba make the opacity effection*/
+li.rgba1 {
+    background: rgba(255,255,0,1);
+}
+li.rgba2 {
+    background: rgba(255,255,0,0.8);
+}
+li.rgba3 {
+    background: rgba(255,255,0,0.6);
+}
+li.rgba4 {
+    background: rgba(255,255,0,0.4);
+}
+li.rgba5 {
+    background: rgba(255,255,0,0.2);
+}
+li.rgba6 {
+    background: rgb(255,255,0); //如果不知rgba(ie8),可以设置一个fallback color 或者是设置给背景图片
+    background: rgba(255,255,0,0);
+}
+
+</style>
+<body>
+    <div class="example-opacity">
+        <div class="sample1">
+          <p>Opacity效果(opacity后代元素随着一起具有透明性)</p>
+          <ul>
+             <li class="opacity opacity1">100%</li>
+             <li class="opacity opacity2">80%</li>
+             <li class="opacity opacity3">60%</li>
+             <li class="opacity opacity4">40%</li>
+             <li class="opacity opacity5">20%</li>
+             <li class="opacity opacity6">0</li>
+         </ul>
+     </div>
+
+     <div class="sample2">
+         <p>CSS3的RGBA效果（后代元素不受影响）</p>
+         <ul>
+             <li class="rgba rgba1">1</li>
+             <li class="rgba rgba2">0.8</li>
+             <li class="rgba rgba3">0.6</li>
+             <li class="rgba rgba4">0.4</li>
+             <li class="rgba rgba5">0.2</li>
+             <li class="rgba rgba6">0</li>
+         </ul>
+     </div>
+ </div>
+</body>
+</html>

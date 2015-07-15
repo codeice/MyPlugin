@@ -5,23 +5,26 @@
  * @version $Id$
  */
 function loadingData(year, month, day) {
-    console.log(year + "-" + month + "-" + day);
+    console.log("Current selected day is:", year + "-" + month + "-" + day);
 }
 $(function() {
     horizontalDatepicker.init(loadingData);
 });
 
+
 var horizontalDatepicker = {
-    position: 0,
+    offset: 0,
+    dayNumber: 0,
+    step: 5,
+    dayElementWidth: 64,
     loadingData: new Function(),
     init: function(callback) {
         horizontalDatepicker.loadingData = callback;
         horizontalDatepicker.initialControl();
-
+        console.log("dayNumber=", horizontalDatepicker.dayNumber);
         //年份下拉列表
         $('#year-wrapper').hover(function() {
-            $('#month-select-list').css('display', 'none');
-            $('#year-select-list').css('display', 'block');
+            horizontalDatepicker.hoverYear();
         })
         $('#year-select-list').mouseleave(function() {
             $('#year-select-list').css('display', 'none');
@@ -29,123 +32,58 @@ var horizontalDatepicker = {
 
         //月份下拉列表
         $('#month-wrapper').hover(function() {
-            $('#year-select-list').css('display', 'none');
-            $('#month-select-list').css('display', 'block');
+            horizontalDatepicker.hoverMonth();
         })
 
         $('#month-select-list').mouseleave(function() {
             $('#month-select-list').css('display', 'none');
         });
 
-        //年份事件绑定
+        //更改年份
         $('.year-item').on("click", function() {
             var year = $(this).text().replace(/^\s+|\s+$/g, '');
-            var month = $('#month').val();
-            horizontalDatepicker.hideYearSelectList();
-            $('#year').val(year);
-            horizontalDatepicker.appendDateHtml(year, month);
+            horizontalDatepicker.changeYear(year);
         });
 
-        //月份表事件绑定
+        //更改月份
         $('.month-item').on("click", function() {
-            var year = $('#year').val();
             var month = $(this).children('input').val();
-            horizontalDatepicker.hideMonthSelectList();
-            $('#month').val(month);
-            horizontalDatepicker.appendDateHtml(year, month);
+            horizontalDatepicker.changeMonth(month);
         });
 
         //年份上一页
         $('#pre-year-page').on("click", function() {
-            $.each($('td.year-item'), function(index, element) {
-                console.log("index=",index,"element=",element);
-                $(element).text(eval($(element).text()) - 1);
-            });
+            horizontalDatepicker.changeYearPage(-1);
         });
 
         //年份下一页
         $('#next-year-page').on("click", function() {
-            $.each($('td.year-item'), function(index, element) {
-                //alert($(el).text());
-                $(element).text(eval($(element).text()) + 1);
-            })
+            horizontalDatepicker.changeYearPage(1);
         });
 
-        // 日期选中事件
-        $('#date-slider span').on("click", function() {
-            horizontalDatepicker.toggleSelectedDay($(this));
-            horizontalDatepicker.getCurrentDateData($(this));
+        //日期点击事件
+        // $("#date-slider").delegate(".day-number","click",function(){
+        //     console.log($(this).attr("id"));
+        //     horizontalDatepicker.chooseDay($(this));
+        // });
+
+        // $('#date-slider>.day-number').live("click", function() {
+        //     horizontalDatepicker.chooseDay($(this));
+        // });
+
+          $('#date-slider>.day-number').on("click", function() {
+            horizontalDatepicker.chooseDay($(this));
         });
 
         //日期右滑动
-        $('#turn-date-right').click(function() {
-            var itemLength = 320;
-            if (horizontalDatepicker.position > -1216) {
-                horizontalDatepicker.position = horizontalDatepicker.position - itemLength;
-                $('#date-slider').animate({
-                    left: horizontalDatepicker.position + 'px'
-                }, 800);
-            }
-            if (horizontalDatepicker.position < -1216 && horizontalDatepicker.position > -1344) {
-                horizontalDatepicker.position = -1344;
-                $('#date-slider').animate({
-                    left: horizontalDatepicker.position + 'px'
-                }, 800);
-                return;
-            } else if (horizontalDatepicker.position <= -1344) {
-                var month = $('#month').val();
-                var year = $('#year').val();
-                if (month == '12') {
-                    $('#year').val(parseInt(year) + 1);
-                    $('#month').val('1');
-                    horizontalDatepicker.appendDateHtml(parseInt(year) + 1, 1);
-                } else {
-                    horizontalDatepicker.appendDateHtml(year, month + 1);
-                    $('#month').val(parseInt(month) + 1);
-                }
-
-                $('#date-slider').animate({
-                    left: horizontalDatepicker.position + 'px'
-                });
-            }
+        $('#turn-date-right').on("click",function() {
+            horizontalDatepicker.turnToRight();
         });
 
         //日期左滑动
-        $('#turn-date-left').click(function() {
-            var itemLength = 320;
-            if (horizontalDatepicker.position < 0 && horizontalDatepicker.position >= -itemLength) {
-                horizontalDatepicker.position = 0;
-                $('#date-slider').animate({
-                    left: horizontalDatepicker.position + 'px'
-                }, 800);
-                return;
-            }
-            if (horizontalDatepicker.position < -itemLength) {
-                horizontalDatepicker.position = horizontalDatepicker.position + itemLength;
-                $('#date-slider').animate({
-                    left: horizontalDatepicker.position + 'px'
-                }, 800);
-
-            } else if (horizontalDatepicker.position == 0) {
-                var month = $('#month').val();
-                var year = $('#year').val();
-                if (month == 1) {
-                    $('#year').val(year - 1);
-                    $('#month').val('12');
-                    horizontalDatepicker.appendDateHtml(year - 1, 12);
-                } else {
-                    horizontalDatepicker.appendDateHtml(year, month - 1);
-                    $('#month').val(month - 1);
-                }
-
-                horizontalDatepicker.position = -1344;
-                $('#date-slider').animate({
-                    left: horizontalDatepicker.position + 'px'
-                });
-            }
+        $('#turn-date-left').on("click",function() {
+            horizontalDatepicker.turnToLeft();
         });
-
-
     },
     // 每月的天数
     dayNumOfMonth: function(year, month) {
@@ -155,13 +93,17 @@ var horizontalDatepicker = {
     //日期html初始化
     appendDateHtml: function(year, month) {
         var num = horizontalDatepicker.dayNumOfMonth(year, month);
+        //根据每月天数计算date-slider的宽度
+        var dateSliderWidth = num * parseInt(horizontalDatepicker.dayElementWidth);
+        $("#date-slider").width(dateSliderWidth);
         $('#date-slider').html('');
         for (var i = 1; i <= num; i++) {
-            // $('#date-slider').append('<span id=span-' + i + ' onclick = hideYearSelectList();hideMonthSelectList();addSelectClass($(this));getExhibitionDetail($(this));selected="#"+$(this).attr("id"); style=vertical-align:middle;text-align:center;cursor:pointer;float:left;width:64px;height:40px;margin-top:8px;padding-top:10px;padding-top:7px;>' + i + '日</span>');
             $('#date-slider').append('<span id=span-' + i + ' class=day-number>' + i + '日</span>');
         }
-        horizontalDatepicker.position = 0;
+        horizontalDatepicker.offset = 0;
+        horizontalDatepicker.dayNumber = 1;
         $('#date-slider').css('left', '0');
+        /*horizontalDatepicker.chooseDay();*/
     },
     // 日期控件视图初始化
     initialControl: function() {
@@ -173,12 +115,16 @@ var horizontalDatepicker = {
         $('#year').val(year);
         $('#month').val(month);
         horizontalDatepicker.appendDateHtml(year, month);
+
+        //设置当前日期为选中状态
+        horizontalDatepicker.dayNumber = day;
         $('#span-' + day).addClass('select');
-        var j = $('#span-' + day).offset().left;
-        var i = $('#span-1').offset().left;
-        horizontalDatepicker.position = i - j;
+        var firstDayOffset = $('#span-1').offset().left;
+        var currentDayOffset = $('#span-' + day).offset().left;
+        horizontalDatepicker.offset = firstDayOffset - currentDayOffset;
+        console.log("horizontalDatepicker.offset=", horizontalDatepicker.offset);
         $('#date-slider').animate({
-            left: horizontalDatepicker.position + 'px'
+            left: horizontalDatepicker.offset + 'px'
         });
         if (month.toString().length < 2) {
             month = "0" + month;
@@ -188,22 +134,54 @@ var horizontalDatepicker = {
         }
         horizontalDatepicker.loadingData(year, month, day);
     },
-    //隐藏年份下啦列表
-    hideYearSelectList: function() {
-        $('#year-select-list').css('display', 'none');
+    hoverYear: function() {
+        $('#month-select-list').css('display', 'none');
+        $('#year-select-list').css('display', 'block');
     },
-    //隐藏月份下拉列表
-    hideMonthSelectList: function() {
+    hoverMonth: function() {
+        $('#year-select-list').css('display', 'none');
+        $('#month-select-list').css('display', 'block');
+    },
+    //改变年份
+    changeYear: function(year) {
+        horizontalDatepicker.hideYearMonthSelectList();
+        var month = $('#month').val();
+        $("#year").val(year);
+        horizontalDatepicker.appendDateHtml(year, month);
+    },
+    //改变月份
+    changeMonth: function(month) {
+        horizontalDatepicker.hideYearMonthSelectList();
+        var year = $('#year').val();
+        $("#month").val(month);
+        horizontalDatepicker.appendDateHtml(year, month);
+    },
+    //年份翻页
+    changeYearPage: function(pageStep) {
+        $.each($('td.year-item'), function(index, element) {
+            $(element).text(eval($(element).text()) + pageStep);
+        });
+    },
+    //选择日期事件
+    chooseDay: function($dayElement) {
+        horizontalDatepicker.hideYearMonthSelectList();
+        horizontalDatepicker.toggleSelectedDay($dayElement);
+        horizontalDatepicker.getCurrentDateData($dayElement);
+        horizontalDatepicker.selectedDayEleId = "#" + $dayElement.attr("id");
+    },
+    hideYearMonthSelectList: function() {
+        $('#year-select-list').css('display', 'none');
         $('#month-select-list').css('display', 'none');
     },
+
     // 更改选中日期的样式
-    toggleSelectedDay: function($selectedDaySpan) {
-        $selectedDaySpan.addClass('select');
-        $selectedDaySpan.siblings().removeClass("select");
+    toggleSelectedDay: function($dayElement) {
+        $dayElement.addClass('select');
+        $dayElement.siblings().removeClass("select");
     },
     //获取当前日期并执行回调函数
-    getCurrentDateData: function($selectedDaySpan) {
-        var day = $selectedDaySpan.text();
+    getCurrentDateData: function($selectedDayElement) {
+        var day = $selectedDayElement.text();
         day = day.split('日')[0];
         var year = $('#year').val();
         var month = $('#month').val();
@@ -214,5 +192,49 @@ var horizontalDatepicker = {
             day = "0" + day;
         }
         horizontalDatepicker.loadingData(year, month, day);
+    },
+    //日期向右滚动事件
+    turnToRight: function() {
+        horizontalDatepicker.dayNumber = horizontalDatepicker.dayNumber + (horizontalDatepicker.step);
+        console.log("右滚5天，第一个显示的天数=", horizontalDatepicker.dayNumber);
+        if (horizontalDatepicker.dayNumber >= 26) {
+            //如果第一个显示日期为27号，则翻向下一个月
+            var month = parseInt($("#month").val()) + 1;
+            if (month == 13) {
+                month = 1;
+                var year = parseInt($("#year").val()) + 1;
+                $("#year").val(year);
+            }
+            horizontalDatepicker.changeMonth(month);
+            console.log(horizontalDatepicker.dayNumber);
+            return false;
+        } else if (horizontalDatepicker.dayNumber > 21) {
+            horizontalDatepicker.dayNumber = 21;
+        }
+        horizontalDatepicker.offset = -(horizontalDatepicker.dayNumber * horizontalDatepicker.dayElementWidth);
+        $('#date-slider').animate({
+            left: horizontalDatepicker.offset + 'px'
+        });
+    },
+    //日期向左滚动时间
+    turnToLeft: function() {
+        if (horizontalDatepicker.dayNumber != 0) {
+            horizontalDatepicker.dayNumber = horizontalDatepicker.dayNumber - (horizontalDatepicker.step);
+            console.log("右滚5天，第一个显示的天数=", horizontalDatepicker.dayNumber);
+        }
+        if (horizontalDatepicker.dayNumber <= 1) {
+            var month = parseInt($("#month").val()) - 1;
+            if (month == 1) {
+                month = 12;
+                var year = parseInt($("#year").val()) - 1;
+                $("#year").val(year);
+            }
+            horizontalDatepicker.changeMonth(month);
+            return false;
+        }
+        horizontalDatepicker.offset = -(horizontalDatepicker.dayNumber * horizontalDatepicker.dayElementWidth);
+        $('#date-slider').animate({
+            left: horizontalDatepicker.offset + 'px'
+        });
     }
 };

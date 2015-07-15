@@ -37,10 +37,10 @@
 }
 
 .unit-text{
- margin-top:4px;
- float: left;
- color: White;
- font-size: 16px;
+   margin-top:4px;
+   float: left;
+   color: White;
+   font-size: 16px;
 }
 
 #year-wrapper:after,#month-wrapper:after{
@@ -153,10 +153,10 @@ td{
 
 /*日期滑动条*/
 .date-container{
-   width: 740px;
-   float: left;
-   background-color: #0F6FBB;
-   overflow: hidden;"
+ width: 740px;
+ float: left;
+ background-color: #0F6FBB;
+ overflow: hidden;"
 }
 .date-slider-wrapper{
     width: 640px;
@@ -168,12 +168,9 @@ td{
     color:#fff;'
 }
 #date-slider{
-    position: relative;
-    width: 3000px;
-    transition: left 0s linear;
-    -webkit-transition: left 0s linear;
-    -moz-transition: left 0s linear;
-    -o-transition: left 0s linear;
+    float: left;
+    position: absolute;
+   /* width: 3000px;*/
 }
 
 #date-slider>.day-number
@@ -189,6 +186,10 @@ td{
     margin-top:8px;
     padding-top:10px;
     padding-top:7px;
+    transition: left 0.1s linear;
+    -webkit-transition: left 0.1s linear;
+    -moz-transition: left 0.1s linear;
+    -o-transition: left 0.1s linear;
 }
 
 #date-slider>.select
@@ -210,13 +211,13 @@ td{
 }
 #turn-date-right
 {
-   font-size: 24px;
-   margin-left: 6px;
-   padding-top: 10px;
-   width: 10px;
-   padding-right: 15px;
-   cursor: pointer;
-   color: white;
-   height: 40px;
-   float: left;"
+ font-size: 24px;
+ margin-left: 6px;
+ padding-top: 10px;
+ width: 10px;
+ padding-right: 15px;
+ cursor: pointer;
+ color: white;
+ height: 40px;
+ float: left;"
 }
