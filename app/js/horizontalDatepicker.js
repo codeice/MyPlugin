@@ -4,29 +4,28 @@
  * @date    2015-07-08 14:22:02
  * @version $Id$
  */
- function loadingData(year, month, day) {
+ function loadData(year, month, day) {
     console.log("Current selected day is:", year + "-" + month + "-" + day);
 }
 $(function() {
-    horizontalDatepicker.init(loadingData);
+    horizontalDatepicker.init(loadData);
 });
-
 
 var horizontalDatepicker = {
     offset: 0,
     dayNumber: 0,
     step: 5,
     dayElementWidth: 64,
-    loadingData: new Function(),
+    loadData: new Function(),
     init: function(callback) {
-        horizontalDatepicker.loadingData = callback;
+        horizontalDatepicker.loadData = callback;
         horizontalDatepicker.initialControl();
         console.log("dayNumber=", horizontalDatepicker.dayNumber);
         //年份下拉列表
         $('#year-wrapper').hover(function() {
             horizontalDatepicker.hoverYear();
         })
-        $('#year-select-list').mouseleave(function() {
+        $('.year-container').mouseleave(function() {
             $('#year-select-list').css('display', 'none');
         })
 
@@ -35,7 +34,7 @@ var horizontalDatepicker = {
             horizontalDatepicker.hoverMonth();
         })
 
-        $('#month-select-list').mouseleave(function() {
+        $('.month-container').mouseleave(function() {
             $('#month-select-list').css('display', 'none');
         });
 
@@ -62,14 +61,14 @@ var horizontalDatepicker = {
         });
 
         //日期点击事件
-        $("#date-slider").delegate(".day-number","click",function(){
-            console.log($(this).attr("id"));
-            horizontalDatepicker.chooseDay($(this));
-        });
-
-        // $('#date-slider>.day-number').live("click", function() {
+        // $("#date-slider").delegate(".day-number","click",function(){
+        //     console.log($(this).attr("id"));
         //     horizontalDatepicker.chooseDay($(this));
         // });
+
+$('#date-slider>.day-number').live("click", function() {
+    horizontalDatepicker.chooseDay($(this));
+});
 
         //   $('#date-slider').on("click",".day-number",function() {
         //     horizontalDatepicker.chooseDay($(this));
@@ -132,7 +131,10 @@ var horizontalDatepicker = {
         if (day.toString().length < 2) {
             day = "0" + day;
         }
-        horizontalDatepicker.loadingData(year, month, day);
+        if(horizontalDatepicker.loadDate!=undefined)
+        {
+            horizontalDatepicker.loadData(year, month, day);
+        }
     },
     hoverYear: function() {
         $('#month-select-list').css('display', 'none');
@@ -191,7 +193,10 @@ var horizontalDatepicker = {
         if (day.toString().length < 2) {
             day = "0" + day;
         }
-        horizontalDatepicker.loadingData(year, month, day);
+        if(horizontalDatepicker.loadData!=undefined)
+        {
+            horizontalDatepicker.loadData(year, month, day);
+        }
     },
     //日期向右滚动事件
     turnToRight: function() {
