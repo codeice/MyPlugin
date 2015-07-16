@@ -6,7 +6,7 @@
  * @version $Id$
  */
 
-body{
+ body{
     padding:0;
     margin: 0;
     font:1em/1.4 Cambria,Georgia,sans-serif;
@@ -27,6 +27,38 @@ ul>li{
     width:66px;
     height:66px;
     margin: 20px 20px 0 0;
+}
+
+ul>li>a{
+    display: block;
+    width: 64px;
+    height: 64px;
+    line-height:64px;
+    overflow: hidden;
+    border: 1px solid: transparent;
+    text-decoration: none;
+    border-radius: 5px;
+}
+ul>li>a:hover,
+ul>li>a:focus,
+ul>li>a:active {
+    opacity:0.8;
+    border-color:#000;
+}
+
+/*facebook*/
+.facebook a{
+    position: relative;
+    background: #3c5a98;
+    color: #fff;
+    border-color: #3c5a98;
+    text-transform: lowercase;
+    text-indent: 34px;
+    letter-spacing: 10px;
+    font-weight: bold;
+    font-size:64px;
+    line-height: 66px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.4);
 }
 
 
