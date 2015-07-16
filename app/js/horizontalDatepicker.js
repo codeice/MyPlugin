@@ -20,7 +20,6 @@ var horizontalDatepicker = {
     init: function(callback) {
         horizontalDatepicker.loadData = callback;
         horizontalDatepicker.initialControl();
-        console.log("dayNumber=", horizontalDatepicker.dayNumber);
         //年份下拉列表
         $('#year-wrapper').hover(function() {
             horizontalDatepicker.hoverYear();
@@ -61,18 +60,9 @@ var horizontalDatepicker = {
         });
 
         //日期点击事件
-        // $("#date-slider").delegate(".day-number","click",function(){
-        //     console.log($(this).attr("id"));
-        //     horizontalDatepicker.chooseDay($(this));
-        // });
-
-$('#date-slider>.day-number').live("click", function() {
-    horizontalDatepicker.chooseDay($(this));
-});
-
-        //   $('#date-slider').on("click",".day-number",function() {
-        //     horizontalDatepicker.chooseDay($(this));
-        // });
+        $("#date-slider").delegate(".day-number","click",function(){
+            horizontalDatepicker.chooseDay($(this));
+        });
 
         //日期右滑动
         $('.date-container').delegate("#turn-date-right","click",function() {
@@ -121,7 +111,6 @@ $('#date-slider>.day-number').live("click", function() {
         var firstDayOffset = $('#span-1').offset().left;
         var currentDayOffset = $('#span-' + day).offset().left;
         horizontalDatepicker.offset = firstDayOffset - currentDayOffset;
-        console.log("horizontalDatepicker.offset=", horizontalDatepicker.offset);
         $('#date-slider').animate({
             left: horizontalDatepicker.offset + 'px'
         });
@@ -131,7 +120,7 @@ $('#date-slider>.day-number').live("click", function() {
         if (day.toString().length < 2) {
             day = "0" + day;
         }
-        if(horizontalDatepicker.loadDate!=undefined)
+        if(horizontalDatepicker.loadData!=undefined)
         {
             horizontalDatepicker.loadData(year, month, day);
         }
@@ -201,7 +190,6 @@ $('#date-slider>.day-number').live("click", function() {
     //日期向右滚动事件
     turnToRight: function() {
         horizontalDatepicker.dayNumber = horizontalDatepicker.dayNumber + (horizontalDatepicker.step);
-        console.log("右滚5天，第一个显示的天数=", horizontalDatepicker.dayNumber);
         if (horizontalDatepicker.dayNumber >= 26) {
             //如果第一个显示日期为27号，则翻向下一个月
             var month = parseInt($("#month").val()) + 1;
@@ -211,7 +199,6 @@ $('#date-slider>.day-number').live("click", function() {
                 $("#year").val(year);
             }
             horizontalDatepicker.changeMonth(month);
-            console.log(horizontalDatepicker.dayNumber);
             return false;
         } else if (horizontalDatepicker.dayNumber > 21) {
             horizontalDatepicker.dayNumber = 21;
@@ -225,7 +212,6 @@ $('#date-slider>.day-number').live("click", function() {
     turnToLeft: function() {
         if (horizontalDatepicker.dayNumber != 0) {
             horizontalDatepicker.dayNumber = horizontalDatepicker.dayNumber - (horizontalDatepicker.step);
-            console.log("右滚5天，第一个显示的天数=", horizontalDatepicker.dayNumber);
         }
         if (horizontalDatepicker.dayNumber <= 1) {
             var month = parseInt($("#month").val()) - 1;

@@ -12,6 +12,12 @@
     font-family: 微软雅黑, 'Microsoft YaHei', Simsun, Verdana, Tahoma, Arial, sans-serif;
 }
 
+.horizontal-datepicker
+{
+    float: left;
+    width: 100%;
+}
+
 /*year css*/
 .year-container{
     width: 150px;
