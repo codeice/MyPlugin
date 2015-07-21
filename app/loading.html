@@ -17,23 +17,39 @@
             animation: loading 2s infinite;
             content: "\2026"; /* ascii code for the ellipsis character (...)*/
         }
-        @-webkit-keyframes loading {
+        @keyframes loading {
             from {
                 width: 2px;
             }
             to {
-                  width: 15px;
-            }
+              width: 15px;
+          }
+      }
+      @-o-keyframes loading {
+        from {
+            width: 2px;
         }
-        @-moz-keyframes loading {
-            from {
-                width: 2px;
-            }
-            to {
-                width: 15px;
-            }
+        to {
+            width: 15px;
         }
-    </style>
+    }
+    @-webkit-keyframes loading {
+        from {
+            width: 2px;
+        }
+        to {
+          width: 15px;
+      }
+  }
+  @-moz-keyframes loading {
+    from {
+        width: 2px;
+    }
+    to {
+        width: 15px;
+    }
+}
+</style>
 </head>
 <body>
     <div class="loading">Loading</div>
