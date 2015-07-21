@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Loading animation</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <style>
+        .loading:after {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            -webkit-animation: loading 2s infinite;
+            -moz-animation: loading 2s infinite;
+            animation: loading 2s infinite;
+            content: "\2026"; /* ascii code for the ellipsis character (...)*/
+        }
+        @-webkit-keyframes loading {
+            from {
+                width: 2px;
+            }
+            to {
+                  width: 15px;
+            }
+        }
+        @-moz-keyframes loading {
+            from {
+                width: 2px;
+            }
+            to {
+                width: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">Loading</div>
+</body>
+</html>
