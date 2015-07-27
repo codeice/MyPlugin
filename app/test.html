@@ -6,6 +6,8 @@
     <title>Test</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
+    <script type="text/javascript" src="js/jquery-1.8.2/"></script>
+    <script type="text/javascript" src="js/common.js"></script>
     <link href="" rel="stylesheet">
     <style>
         .content-box{
@@ -29,5 +31,9 @@
         <div class="content-box">This is a standard W3C box model</div>
         <div class="border-box">This is a boder box model </div>
     </div>
+    <script type="text/javascript">
+      var myURL = parseURL('http://abc.com:8080/dir/index.html?id=255&m=hello#top');
+      console.log("myUrl=",myURL);
+    </script>
 </body>
 </html>
