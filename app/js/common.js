@@ -13,8 +13,8 @@ function parseURL(url) {
         query: a.search,
         params: (function(){
             var ret = {},
-                seg = a.search.replace(/^\?/,'').split('&'),
-                len = seg.length, i = 0, s;
+            seg = a.search.replace(/^\?/,'').split('&'),
+            len = seg.length, i = 0, s;
             for (;i<len;i++) {
                 if (!seg[i]) { continue; }
                 s = seg[i].split('=');
