@@ -105,12 +105,22 @@ var horizontalDatepicker = {
         $('#month').val(month);
         horizontalDatepicker.appendDateHtml(year, month);
 
-        //设置当前日期为选中状态
-        horizontalDatepicker.dayNumber = day;
         $('#span-' + day).addClass('select');
         var firstDayOffset = $('#span-1').offset().left;
-        var currentDayOffset = $('#span-' + day).offset().left;
-        horizontalDatepicker.offset = firstDayOffset - currentDayOffset;
+
+
+        //设置当前日期为选中状态
+        horizontalDatepicker.dayNumber = day;
+        if (horizontalDatepicker.dayNumber > 21) {
+            horizontalDatepicker.dayNumber = 21;
+            horizontalDatepicker.offset = -(horizontalDatepicker.dayNumber * horizontalDatepicker.dayElementWidth);
+        }
+        else
+        {
+            var currentDayOffset = $('#span-' + day).offset().left;
+            horizontalDatepicker.offset = firstDayOffset - currentDayOffset;
+        }
+
         $('#date-slider').animate({
             left: horizontalDatepicker.offset + 'px'
         });
