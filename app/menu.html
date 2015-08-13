@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Test</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="js/jquery-1.8.2/jquery-1.8.2.min.js"></script>
+    <script src="js/menu.js"></script>
+</head>
+<body>
+    <div>
+        <ul id="menu">
+        </ul>
+    </div>
+    <script type="text/javascript">
+        //构建层级菜单
+        function buildHierarchialMenu(menu){
+           var $ul=$("<ul></ul>");
+           for(var  i =0;i<menu.subMenus.length;i++) {
+                var subMenu=menu.subMenus[i];
+                var $subLi=$("<li><a></a></li>");
+                $subLi.find("a").text(subMenu.name).attr("href",subMenu.url);
+                $ul.append($subLi);
+                if(subMenu.subMenus)
+                {
+                    $subLi.append(buildHierarchialMenu(subMenu));
+                }
+            };
+            return $ul;
+        }
+
+    $(function(){
+        var menuObj=menuConfig;
+        console.log("menuObj=",menuObj);
+        for(var i=0;i<menuObj.menus.length;i++){
+            var menu=menuObj.menus[i];
+            var $li=$("<li><a></a></li>");
+            $li.find('a').text(menu.name).attr("href",menu.url);
+            if(menu.subMenus)
+            {
+                $ul=buildHierarchialMenu(menu);
+                $li.append($ul);
+            }
+            console.log("$li",$li);
+            $("#menu").append($li);
+        }
+
+    });
+</script>
+</body>
+</html>
