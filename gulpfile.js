@@ -5,7 +5,7 @@
  * @version $Id$
  */
 
-var gulp=require('gulp');
-gulp.task('default',function(){
+ var gulp=require('gulp');
+ gulp.task('default',function(){
 
-});
+ });
