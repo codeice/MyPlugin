@@ -33,10 +33,8 @@
         }
 
     $(function(){
-        var menuObj=menuConfig;
-        console.log("menuObj=",menuObj);
-        for(var i=0;i<menuObj.menus.length;i++){
-            var menu=menuObj.menus[i];
+        for(var i=0;i<menus.length;i++){
+            var menu=menus[i];
             var $li=$("<li><a></a></li>");
             $li.find('a').text(menu.name).attr("href",menu.url);
             if(menu.subMenus)
