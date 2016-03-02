@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bootstrap Plugins</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="framework/bootstrap-v3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="framework/jquery-v2.1.4/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="framework/bootstrap-v3.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <style type="text/css">
+        .bs-example{
+            margin: 150px 50px;
+        }
+        /* Styles for custom popover template */
+        .popover-footer{
+            padding: 6px 14px;
+            background-color: #f7f7f7;
+            border-top: 1px solid #ebebeb;
+            text-align: right;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+
+            <button  id="popup1" type="button"  data-toggle="popover" data-trigger="focus" data-placement="bottom">popover</button>
+
+
+            <button id="popup2" type="button" class="btn btn-primary btn-lg" data-toggle="popover" title="Custom Popover Template" data-content="A simple example of a customized Bootstrap popover that displays a footer with close button on every popover without adding any extra markup to the popover HTML code.">       Customized Popover
+            </button>
+
+
+            <div class="form-control">
+                <label>姓名：</label>
+                <input type="text" id="popup3" data-toggle="popover" data-trigger="focus" data-placement="bottom"/>
+            </div>
+
+            <div id="popup-contact" class="popover">
+                <div class="row">从已有联系人中选择</div>
+                <div class="row">
+                    <span>张三</span>
+                    <span>李四</span>
+                    <span>王平</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('#popup1').popover({
+               title: '<h3 class="custom-title"><span class="glyphicon glyphicon-info-sign"></span>从已有联系人中选择</h3>',
+               content: '<p>This is a <em>simple example</em> demonstrating how to insert HTML code inside <mark><strong>Bootstrap popover</strong></mark>.</p>',
+               html: true
+           });
+        });
+
+        $(document).ready(function(){
+            $('#popup2').popover({
+                html: true,
+                template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title">从已有联系人中选择</h3><div class="popover-content"></div><div class="popover-footer"><a href="#" class="btn btn-info btn-sm">Close</a></div></div>'
+            });
+
+            // Custom jQuery to hide popover on click of the close button
+            $(document).on("click", ".popover-footer .btn" , function(){
+                $(this).parents(".popover").popover('hide');
+            });
+        });
+
+
+        $(function(){
+          $('#popup3').popover({
+            selector:'#popup-contact',
+            trigger:'hover'
+        });
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Jquery Function Test</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <script type="text/javascript" src="framework/jquery-v2.1.4/jquery-2.1.4.js"></script>
+</head>
+<body>
+    <div class="container">
+      Lorem ipsum dolor sit amet, consectetur
+      <div>
+        Hello world
+    </div>
+    adipisicing elit, sed
+    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    <div>
+        Hello world
+    </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+     $( ".container" )
+     .contents()
+     .filter(function() {
+      return this.nodeType === 3;
+  }).wrap( "<p style='color:red;'></p>" )
+     .end()
+     .filter( function(){
+        this.nodeType===1
+    } ).wrap("<div>容器！</div>");
+ });
+</script>
+</body>
+</html>
