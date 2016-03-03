@@ -1,16 +1,11 @@
-/**
- * 
- * @authors Your Name (you@example.org)
- * @date    2016-03-01 15:03:42
- * @version $Id$
- */
-
+var assetPath="";
 var  gulp=require('gulp');
 var browserSync=require('browser-sync').create();
 var less=require('gulp-less');
 var cssmin=require('gulp-cssmin');
 var rename=require('gulp-rename');
 var uglify =require('gulp-uglify');
+var inject=require('gulp-inject');
 
 gulp.task('browser-sync',function(){
 	browserSync.init({
@@ -19,31 +14,44 @@ gulp.task('browser-sync',function(){
 });
 
 //---less编译,css minify
-gulp.task('less',function(){
-	return gulp.src('./src/css/*.less')
-	.pipe(less().on('error',function(err){
+gulp.task('build-styles',function(){
+	return gulp.src('./src/css/*.css')
+/*	.pipe(less().on('error',function(err){
 		console.log("compile less error=",err);
-	}))
+	}))*/
 	.pipe(cssmin())
-	.pipe(rename({suffix: '.min'}))
+/*	.pipe(rename({suffix: '.min'}))*/
 	.pipe(gulp.dest('./dest/css'));
 });
 
 //---js压缩
-gulp.task('uglify-js',function(){
+gulp.task('build-js',function(){
 	return
 	 gulp.src('./src/js/*.js')
 	.pipe(uglify())
-	.pipe(rename({suffix:'.min'}))
+/*	.pipe(rename({suffix:'.min'}))*/
 	.pipe(gulp.dest('./dest/js'));
 });
 
 
-gulp.task('default',['browser-sync','compile-less','uglify-js'],function(){
+//----重写html资源引用路径
+gulp.task('build-html',function(){
+	console.log('build-html');
+	var target=gulp.src('./src/index.html')
+	var sources=gulp.src(['./src/**/*.js','./src/**/*.css'],{read:false});
+	return 
+	target.pipe(inject(sources))
+    .pipe(gulp.dest('./dest/index.html'));
+});
+
+
+gulp.task('build',['build-styles','build-js'],function(){	
+	gulp.run('build-html');
+});
+
+
+gulp.task('default',['browser-sync','build'],function(){
 	console.log("hello gulp...");
-	gulp.watch('./src/css/*.less',['less']);
-/*	gulp.src('./src/*.html')
-	.pipe(gulp.dest('./dest/*.html'));*/
 });	
 
 
